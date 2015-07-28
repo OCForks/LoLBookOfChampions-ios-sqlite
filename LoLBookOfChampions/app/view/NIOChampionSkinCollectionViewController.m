@@ -63,7 +63,7 @@
 	[[queryTask run] continueWithExecutor:[BFExecutor mainThreadExecutor] withBlock:^id(BFTask *task) {
 
 		if ( task.error || task.exception ) {
-			DDLogError(@"An error occurred querying champion skins: %@", task.error ? task.error : task.exception);
+			LOLLogError(@"An error occurred querying champion skins: %@", task.error ? task.error : task.exception);
 		} else {
 			if ( weakSelf ) {
 				weakSelf.cursor = task.result;

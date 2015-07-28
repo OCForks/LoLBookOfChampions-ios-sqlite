@@ -27,7 +27,7 @@
 }
 
 -(BFTask *)run {
-	DDLogVerbose(@"Caching %lu champion, loading and splash images", self.cacheableImageURLs.count);
+	LOLLogVerbose(@"Caching %lu champion, loading and splash images", self.cacheableImageURLs.count);
 	BFTask *promise;
 	NSMutableArray *tasks = [[NSMutableArray alloc] initWithCapacity:IMAGES_PER_BATCH];
 	int batchCount = (int) self.cacheableImageURLs.count / IMAGES_PER_BATCH;
@@ -35,7 +35,7 @@
 	int cachedCountThisBatch = 0, cachedCountTotal = 0;
 
 	for ( NSString *urlString in self.cacheableImageURLs ) {
-		DDLogVerbose(@"Caching image for %@", urlString);
+		LOLLogVerbose(@"Caching image for %@", urlString);
 		__block BFTaskCompletionSource *completionSource = [BFTaskCompletionSource taskCompletionSource];
 		BFTask *cacheTask = completionSource.task;
 		[tasks addObject:cacheTask];
@@ -59,7 +59,7 @@
 		}
 
 	};
-	DDLogVerbose(@"Cached %d champion, loading and splash images", cachedCountTotal);
+	LOLLogVerbose(@"Cached %d champion, loading and splash images", cachedCountTotal);
 
 	return promise;
 }

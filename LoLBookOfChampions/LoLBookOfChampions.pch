@@ -16,4 +16,18 @@
 
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
+#ifdef DEBUG
+    #define LOLLogError(fmt, ...) DDLogError((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+    #define LOLLogWarn(fmt, ...) DDLogWarn((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+    #define LOLLogInfo(fmt, ...) DDLogInfo((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+    #define LOLLogDebug(fmt, ...) DDLogDebug((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+    #define LOLLogVerbose(fmt, ...) DDLogVerbose((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+    #define LOLLogError(fmt, ...)
+    #define LOLLogWarn(fmt, ...)
+    #define LOLLogInfo(fmt, ...)
+    #define LOLLogDebug(fmt, ...)
+    #define LOLLogVerbose(fmt, ...)
+#endif
+
 #endif

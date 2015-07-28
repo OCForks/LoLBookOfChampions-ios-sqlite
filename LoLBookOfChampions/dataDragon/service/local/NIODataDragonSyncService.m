@@ -60,7 +60,7 @@
 	if ( [cursor next] ) {
 		localDataDragonVersion = [cursor stringForColumn:[RealmColumns COL_REALM_VERSION]];
 	} else {
-		DDLogInfo(@"No local Data Dragon version found");
+		LOLLogInfo(@"No local Data Dragon version found");
 		localDataDragonVersion = [@(NSNotFound) stringValue];
 	}
 
@@ -81,7 +81,7 @@
 
 -(BFTask *)insertRealmWithRemoteRealmData:(NSDictionary *)realmResponse {
 	NSString *remoteDataDragonVersion = realmResponse[@"v"];
-	DDLogInfo(@"Found remote data dragon version %@", remoteDataDragonVersion);
+	LOLLogInfo(@"Found remote data dragon version %@", remoteDataDragonVersion);
 	self.localDataDragonVersion = remoteDataDragonVersion;
 	self.dataDragonCDN = realmResponse[@"cdn"];
 
@@ -92,13 +92,13 @@
 }
 
 -(void)resync {
-	DDLogInfo(@"Resyncing remote data dragon data with local database");
+	LOLLogInfo(@"Resyncing remote data dragon data with local database");
 
 	[[[[[[[BFTask taskFromExecutor:self.taskExecutor withBlock:^id {
 		return [[self.taskFactory createTaskWithType:[NIOClearLocalDataDragonDataTask class]] run];
 	}] continueWithExecutor:self.taskExecutor withBlock:^id(BFTask *task) {
 		if ( task.error ) {
-			DDLogError(@"An error occurred attempting to delete the local data dragon data: %@", task.error);
+			LOLLogError(@"An error occurred attempting to delete the local data dragon data: %@", task.error);
             self.currentTask = nil;
 			return nil;
 		}
@@ -106,7 +106,7 @@
 		return [[self.taskFactory createTaskWithType:[NIOGetRealmTask class]] run];
 	}] continueWithExecutor:self.taskExecutor withBlock:^id(BFTask *task) {
 		if ( task.error ) {
-			DDLogError(@"An error occurred attempting to retrieve the remote data dragon realm: %@", task.error);
+			LOLLogError(@"An error occurred attempting to retrieve the remote data dragon realm: %@", task.error);
             self.currentTask = nil;
 			return nil;
 		}
@@ -126,9 +126,9 @@
 		return [self cacheChampionImagesWithImageURLs:task.result];
 	}] continueWithExecutor:self.taskExecutor withBlock:^id(BFTask *task) {
 		if ( task.error || task.exception ) {
-			DDLogError(@"An error occurred attempting to resync the remote data dragon data with the local database: %@", task.error ? task.error : task.exception);
+			LOLLogError(@"An error occurred attempting to resync the remote data dragon data with the local database: %@", task.error ? task.error : task.exception);
 		} else {
-			DDLogInfo(@"Resync of remote data dragon data with the local database has completed successfully");
+			LOLLogInfo(@"Resync of remote data dragon data with the local database has completed successfully");
 		}
         self.currentTask = nil;
 		return nil;
@@ -150,12 +150,12 @@
                                                             withError:&error];
                                   
         if (error) {
-            DDLogError(@"An error occurred retrieving the local data dragon realm info: %@", error);
+            LOLLogError(@"An error occurred retrieving the local data dragon realm info: %@", error);
             return nil;
         }
         
         __block NSString *localDataDragonVersion = [weakSelf getLocalDataDragonVersion:cursor];
-        DDLogInfo(@"Found local data dragon version %@", localDataDragonVersion);
+        LOLLogInfo(@"Found local data dragon version %@", localDataDragonVersion);
         
         if ( [[@(NSNotFound) stringValue] isEqualToString:localDataDragonVersion] ) {
             [weakSelf resync];
@@ -166,10 +166,10 @@
                 continueWithExecutor:weakSelf.taskExecutor withSuccessBlock:^id(BFTask *task) {
 					NSDictionary *remoteDataDragonRealmData = task.result;
 					NSString *remoteDataDragonVersion = remoteDataDragonRealmData[@"v"];
-					DDLogInfo(@"Found remote data dragon version %@", remoteDataDragonVersion);
+					LOLLogInfo(@"Found remote data dragon version %@", remoteDataDragonVersion);
 
 					if ( [localDataDragonVersion isEqualToString:remoteDataDragonVersion] ) {
-						DDLogInfo(@"Local data dragon version is the latest available");
+						LOLLogInfo(@"Local data dragon version is the latest available");
 					} else {
 						[weakSelf resync];
 					}

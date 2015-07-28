@@ -37,7 +37,7 @@
             [weakSelf.sharedURLCache removeAllCachedResponses];
             return [BFTask taskWithResult:nil];
         }] continueWithExecutor:weakSelf.executionExecutor withBlock:^id(BFTask *task) {
-            DDLogVerbose(@"Deleting Data Dragon realm");
+            LOLLogVerbose(@"Deleting Data Dragon realm");
             deleteCount = [weakSelf.contentResolver deleteWithURI:[Realm URI]
                                                     withSelection:nil
                                                 withSelectionArgs:nil
@@ -46,7 +46,7 @@
         }] continueWithExecutor:weakSelf.executionExecutor withBlock:^id(BFTask *task) {
             if (task.error || task.exception) return task;
             
-            DDLogVerbose(@"Deleting Data Dragon champion data");
+            LOLLogVerbose(@"Deleting Data Dragon champion data");
             deleteCount = [weakSelf.contentResolver deleteWithURI:[Champion URI]
                                                     withSelection:nil
                                                 withSelectionArgs:nil
@@ -55,7 +55,7 @@
         }] continueWithExecutor:weakSelf.executionExecutor withBlock:^id(BFTask *task) {
             if (task.error || task.exception) return task;
             
-            DDLogVerbose(@"Deleting Data Dragon champion skin data");
+            LOLLogVerbose(@"Deleting Data Dragon champion skin data");
             deleteCount = [weakSelf.contentResolver deleteWithURI:[ChampionSkin URI]
                                                     withSelection:nil
                                                 withSelectionArgs:nil

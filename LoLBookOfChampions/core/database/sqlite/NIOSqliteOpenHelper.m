@@ -83,23 +83,23 @@
 }
 
 -(void)onConfigure:(FMDatabase *)database {
-	DDLogVerbose(@"Configuring %@", [database databasePath]);
+	LOLLogVerbose(@"Configuring %@", [database databasePath]);
 }
 
 -(void)onCreate:(FMDatabase *)database {
-	DDLogVerbose(@"Creating %@", [database databasePath]);
+	LOLLogVerbose(@"Creating %@", [database databasePath]);
 }
 
 -(void)onDowngrade:(FMDatabase *)database fromOldVersion:(NSInteger)oldVersion toNewVersion:(NSInteger)newVersion {
-	DDLogVerbose(@"Downgrading %@ from v%ld to v%ld", [database databasePath], oldVersion, newVersion);
+	LOLLogVerbose(@"Downgrading %@ from v%ld to v%ld", [database databasePath], oldVersion, newVersion);
 }
 
 -(void)onOpen:(FMDatabase *)database {
-	DDLogVerbose(@"Opening %@", [database databasePath]);
+	LOLLogVerbose(@"Opening %@", [database databasePath]);
 }
 
 -(void)onUpgrade:(FMDatabase *)database fromOldVersion:(NSInteger)oldVersion toNewVersion:(NSInteger)newVersion {
-	DDLogVerbose(@"Upgrading %@ from v%ld to v%ld", [database databasePath], oldVersion, newVersion);
+	LOLLogVerbose(@"Upgrading %@ from v%ld to v%ld", [database databasePath], oldVersion, newVersion);
 }
 
 -(void)setCurrentDatabaseVersion:(FMDatabase *)db withVersion:(NSInteger)dbVersion {

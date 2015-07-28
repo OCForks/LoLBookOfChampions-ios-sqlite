@@ -89,7 +89,7 @@
 			promise = [BFTask taskWithError:[NSError errorWithDomain:@"content.provider.datadragon"
 																code:99
 															userInfo:nil]];
-			DDLogError(@"Unmatched URI %@", [uri absoluteString]);
+			LOLLogError(@"Unmatched URI %@", [uri absoluteString]);
 	}
 
 	[promise waitUntilFinished];
@@ -142,7 +142,7 @@
 			promise = [BFTask taskWithError:[NSError errorWithDomain:@"content.provider.datadragon"
 																code:99
 															userInfo:nil]];
-			DDLogError(@"Unmatched URI %@", [uri absoluteString]);
+			LOLLogError(@"Unmatched URI %@", [uri absoluteString]);
 	}
 
 	[promise waitUntilFinished];
@@ -207,7 +207,7 @@
 			promise = [BFTask taskWithError:[NSError errorWithDomain:@"content.provider.datadragon"
 																code:99
 															userInfo:nil]];
-			DDLogError(@"Unmatched URI %@", [uri absoluteString]);
+			LOLLogError(@"Unmatched URI %@", [uri absoluteString]);
 	}
 
 	[promise waitUntilFinished];

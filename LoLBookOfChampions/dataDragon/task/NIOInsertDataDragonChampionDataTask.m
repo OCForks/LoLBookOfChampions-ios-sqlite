@@ -84,7 +84,7 @@
             NSDictionary *championSkinsData = championData[@"skins"];
             
             // Insert the champion row
-            DDLogVerbose(@"Inserting champion info for %@", championKey);
+            LOLLogVerbose(@"Inserting champion info for %@", championKey);
             [weakSelf.contentResolver insertWithURI:[Champion URI]
                                       withValues:[weakSelf championInsertValuesFrom:championData]
                                        withError:&error];
@@ -93,7 +93,7 @@
             
             // Insert the skins for this champion
             for ( NSDictionary *championSkinData in championSkinsData ) {
-                DDLogVerbose(@"Inserting champion skin %@ for %@", championSkinData[@"name"], championKey);
+                LOLLogVerbose(@"Inserting champion skin %@ for %@", championSkinData[@"name"], championKey);
                 [weakSelf.contentResolver insertWithURI:[ChampionSkin URI]
                                              withValues:[weakSelf championSkinInsertValuesFrom:championSkinData
                                                                                 withChampionId:championId
